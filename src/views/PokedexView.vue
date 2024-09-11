@@ -2,13 +2,12 @@
   <div class="pokedex" v-if="pokedexStore.pokemons.length">
     <SearchIcon class="pokedex__search-icon" />
     <input class="pokedex__search-bar" type="search" placeholder="Search" v-model="searchQuery" />
-    <div class="pokedex__list">
       <PokemonList
+       class="pokedex__list"
         :pokemons="!favorites ? pokedexStore.pokemons : pokedexStore.favorites"
         :searchQuery="searchQuery"
         @openModal="openModal"
       />
-    </div>
     <PokemonDetailsModal
       :show="isOpen"
       :pokemon="selectedPokemon"
@@ -24,10 +23,8 @@
       </ListBtn>
     </footer>
   </div>
-  <div v-else>
-    <div class="loading">
-      <img src="../assets/Loader.png" alt="Pokeball" class="loading__img" />
-    </div>
+  <div class="loading" v-else>
+    <PokeballLoader />
   </div>
 </template>
 
@@ -41,9 +38,9 @@ import ListIcon from '@/components/icons/ListIcon.vue'
 import StarIcon from '@/components/icons/StarIcon.vue'
 import SearchIcon from '@/components/icons/SearchIcon.vue'
 import PokemonList from '@/components/PokemonList.vue'
+import PokeballLoader from '@/components/PokeballLoader.vue'
 
 const pokedexStore = usePokedexStore()
-
 const loading = ref<boolean>(true)
 const favorites = ref<boolean>(false)
 const isOpen = ref<boolean>(false)
@@ -87,7 +84,7 @@ const openModal = async (url: string) => {
   }
 
   &__list {
-    padding-bottom: 70px;
+      padding-bottom: 50px;
   }
 }
 
@@ -111,24 +108,6 @@ const openModal = async (url: string) => {
   justify-content: center;
   align-items: center;
   height: 100vh;
-
-  &__img {
-    width: 100px;
-    height: 100px;
-    animation: zoomInOut 1.5s ease-in-out infinite;
-  }
-}
-
-@keyframes zoomInOut {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
 }
 
 @media only screen and (max-width: 768px) {

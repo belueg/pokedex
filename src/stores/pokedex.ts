@@ -41,8 +41,8 @@ export const usePokedexStore = defineStore('pokedex', () => {
     }
   }
 
-  const favorites = computed(() => {
-    return pokemons.value.filter((pokemon) => pokemon.favorite)
+  const favorites = computed<Pokemon[]>(() => {
+    return pokemons.value.filter((pokemon: Pokemon) => pokemon.favorite)
   })
 
   return { getPokemon, pokemons, favorites, pokemonDetails, fetchPokemonDetails }
