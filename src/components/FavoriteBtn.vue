@@ -8,7 +8,7 @@
 import StarIcon from '@/components/icons/StarIcon.vue'
 const emit = defineEmits(['changeFav'])
 
-const props = defineProps({
+ defineProps({
   favorite: Boolean
 })
 

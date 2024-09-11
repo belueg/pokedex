@@ -57,7 +57,7 @@ const onScroll = () => {
   const clientHeight = window.innerHeight
 
   if (scrollTop + clientHeight >= scrollHeight && !loading.value) {
-    if (filteredPokemons.value.length !== props.pokemons?.length) {
+    if (filteredPokemons.value.length !== props.pokemons?.length && props.searchQuery === '') {
       loading.value = true
       setTimeout(loadMoreItems, 2000)
     }

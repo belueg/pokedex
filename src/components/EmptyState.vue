@@ -21,6 +21,5 @@
     color: #5e5e5e;
     margin: 10px 0 25px 0;
   }
-
 }
 </style>

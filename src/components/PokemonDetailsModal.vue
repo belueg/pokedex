@@ -1,6 +1,6 @@
 <template>
   <teleport to="body">
-    <div v-if="show && pokemon" class="modal">
+    <div v-if="show && pokemon && !loading" class="modal">
       <div class="modal__content">
         <div class="modal__background-img">
           <img :src="`${pokemon.image}`" class="modal__img" alt="pokemon" />
@@ -37,11 +37,19 @@ import type { PokemonDetails } from '@/types/interfaces'
 import CloseButton from './icons/CloseButtonIcon.vue'
 import FavoriteBtn from './FavoriteBtn.vue'
 import { usePokedexStore } from '@/stores/pokedex'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = defineProps<{ show: Boolean; pokemon: PokemonDetails }>()
-
 const pokedexStore = usePokedexStore()
+const loading = ref(true)
+const imageUrl = props.pokemon.image
+
+const img = new Image()
+img.src = imageUrl
+
+img.onload = () => {
+  loading.value = false
+}
 
 const currentPokemon = computed(() =>
   pokedexStore.pokemons.find((p) => p.name === props.pokemon.name)
